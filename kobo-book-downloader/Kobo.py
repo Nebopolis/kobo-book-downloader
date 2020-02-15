@@ -156,7 +156,7 @@ class Kobo:
 		parsed = urllib.parse.urlparse( signInUrl )
 		koboSignInUrl = parsed._replace( query = None, path = "/ww/en/signin/signin/kobo" ).geturl()
 
-		match = re.search( r""" name="LogInModel.WorkflowId" type="hidden" value="([^"]+)" />""", htmlResponse )
+		match = re.search( r"""\?workflowId=([^"]{36})""", htmlResponse )
 		if match is None:
 			raise KoboException( "Can't find the workflow ID in the login form. The page format might have changed." )
 		workflowId = html.unescape( match.group( 1 ) )
